@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System;
 using System.Threading;
 
 public class RplidarTest : MonoBehaviour {
 
     public string port;
+    public GameObject Capsule;
 
     private LidarData[] data;
 
@@ -24,6 +26,11 @@ public class RplidarTest : MonoBehaviour {
     private Thread m_thread;
     private bool m_datachanged = false;
     //=====
+
+
+    //=====0822
+    private Vector3 Temp_position;
+    //
 
     private void Awake()
     {
@@ -75,16 +82,41 @@ public class RplidarTest : MonoBehaviour {
             //    drawingIndex++; //drawingIndex값을 1씩 증가시켜 DATA_LENGTH와 비교를 하게 됩니다.
             //}
 
+            //distance mm/angle
+
 
             if (m_datachanged)
             {
                 for (int i = 0; i < 720; i++)
                 {
-                    transform.rotation = Quaternion.Euler(0.0f, angle[i], 0.0f);
-                    Instantiate(spherePrefab, transform.forward * data[i].distant*0.01f, Quaternion.identity);
+                    if (data[i].theta > 50 && data[i].theta < 300)
+                    {
+                            transform.rotation = Quaternion.Euler(0.0f, data[i].theta, 0.0f);
+                            //Instantiate(spherePrefab, transform.forward * 0 * 0.01f, Quaternion.identity);
+
+                    }
+                    else
+                    {
+                        if (i % 2 == 0)
+                        {
+
+                            transform.rotation = Quaternion.Euler(0.0f, data[i].theta, 0.0f);
+                            //Distance
+                            if (data[i].distant < 2000)
+                            {
+                                Instantiate(spherePrefab, transform.forward * data[i].distant * 0.01f, Quaternion.identity);
+                                Temp_position = Camera.main.WorldToScreenPoint(transform.forward * data[i].distant * 0.01f);
+                                Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x,Temp_position.y));
+                            }
+                                
+
+
+                        }
+                    }
+
                 }
                 m_datachanged = false;
-                Debug.Log("CHECK");
+                //Debug.Log("CHECK");
             }
         }
     }
@@ -151,6 +183,7 @@ public class RplidarTest : MonoBehaviour {
         {
             bool r = RplidarBinding.StartMotor();
             Debug.Log("StartMotor:" + r);
+            Capsule.GetComponent<LidarRotateScript>().check = true;
         });
 
         DrawButton("EndMotor", () =>

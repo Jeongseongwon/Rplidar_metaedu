@@ -67,7 +67,16 @@ public class RplidarMap : MonoBehaviour {
             m_vert.Clear();
             for (int i = 0; i < 720; i++)
             {
-                m_vert.Add(Quaternion.Euler(0, 0, m_data[i].theta) * Vector3.right * m_data[i].distant*0.01f);
+                //Exception
+                if (m_data[i].theta > 50 && m_data[i].theta < 300)
+                {
+                    m_vert.Add(Quaternion.Euler(0, 0, m_data[i].theta) * Vector3.right * 0 * 0.01f);
+                }
+                else
+                {
+                    m_vert.Add(Quaternion.Euler(0, 0, m_data[i].theta) * Vector3.right * m_data[i].distant * 0.01f);
+                }
+
 
             }
             m_mesh.SetVertices(m_vert);
