@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Destroy_prefab : MonoBehaviour
@@ -16,19 +14,18 @@ public class Destroy_prefab : MonoBehaviour
 
     void Start()
     {
-        //여기에서 나머지 position 확인하고 대입하는걸로
-
         //Temp_position = Camera.main.WorldToScreenPoint(this.gameObject.GetComponent<Transform>().position);
-        //Debug.Log(Temp_position.x);
-        //Debug.Log(Temp_position.y);
         //Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, Temp_position.y));
+        //Debug.Log(Temp_position);
+        ////중요, 이렇게 할 경우 오브젝트의 위치에 마우스가 위치하는 것을 확인함
 
+        //Destroy(this.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(timer < 1f)
+        if (timer < 0.5f)
         {
             timer += Time.deltaTime;
         }

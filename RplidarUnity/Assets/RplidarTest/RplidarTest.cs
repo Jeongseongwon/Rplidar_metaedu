@@ -10,7 +10,7 @@ public class RplidarTest : MonoBehaviour
 {
 
     public string port;
-    public GameObject Capsule;
+    //public GameObject Capsule;
 
     private LidarData[] data;
 
@@ -36,7 +36,13 @@ public class RplidarTest : MonoBehaviour
 
     public GameObject sphere_obj;
     //private int i = 0;
+    public GameObject Moving_obj;
+
+    private float Data_angle;
+    private float Data_distance;
     //=====
+
+
 
     private void Awake()
     {
@@ -54,6 +60,8 @@ public class RplidarTest : MonoBehaviour
 
 
     }
+
+    //0824 위의 coroutine 대체로 주석처리
     void GenMesh()
     {
         while (true)
@@ -62,7 +70,7 @@ public class RplidarTest : MonoBehaviour
 
             if (datacount == 0)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(5);
             }
             else
             {
@@ -72,7 +80,7 @@ public class RplidarTest : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Check_onscan)
         {
@@ -92,13 +100,45 @@ public class RplidarTest : MonoBehaviour
 
             //distance mm/angle
 
+            //Mouse.current.WarpCursorPosition(new Vector2(UnityEngine.Random.Range(400,1000), UnityEngine.Random.Range(400, 1000)));
+            for (int i = 0; i < 720; i++)
+            {
+                if (i % 8 == 0)
+                {
+
+                    //transform.rotation = Quaternion.Euler(0.0f, UnityEngine.Random.Range(0, 90), 0.0f);
+
+                    //Instantiate(spherePrefab, transform.forward * data[i].distant * 0.01f, Quaternion.identity);
+
+
+                    // Instantiate(spherePrefab, transform.forward * UnityEngine.Random.Range(400, 1000) * 0.01f, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 90)));
+
+                    //transform.rotation = Quaternion.Euler(0.0f, UnityEngine.Random.Range(0, 90), 0.0f);
+                    //Moving_obj.transform.position = transform.forward * 0.01f* UnityEngine.Random.Range(400, 1000);
+                    
+                    //우선 오브젝트가 빠르게 움직이는거에 따라 마우스가 이동하는것은 정상작동하는 것 확인함
+
+                    //1. 캡슐 오브젝트를 angle값에 맞춰서 회전 시킨다 -> 근데 이거는 
+                    //2. distance값에 맞춰 오브젝트 이동시킨다
+                    //3. 마우스 커서를 그 위에 올린다
+
+
+                    //우선 위의 방법으로 되지 않았으니 삼각함수로 x,y좌표를 새로 구해주는걸로 수정하겠음
+
+                }
+            }
+            //Moving_obj.transform.position = transform.forward * UnityEngine.Random.Range(400, 1000) * 0.01f;
+
 
             if (m_datachanged)
             {
                 for (int i = 0; i < 720; i++)
                 {
-                    //Debug.Log(i);
-                    if (data[i].theta > 50 && data[i].theta < 300)
+                    Data_angle = data[i].theta;
+                    Data_distance = data[i].distant;
+                    //transform.rotation = Quaternion.Euler(0.0f, data[i].theta, 0.0f);
+
+                    if (Data_angle > 50 && Data_angle < 300)
                     {
                         //transform.rotation = Quaternion.Euler(0.0f, data[i].theta, 0.0f);
                         //Instantiate(spherePrefab, transform.forward * 0 * 0.01f, Quaternion.identity);
@@ -107,17 +147,37 @@ public class RplidarTest : MonoBehaviour
                     {
                         if (i % 8 == 0)
                         {
-                            //Debug.Log(i+this.gameObject.name);
-                            transform.rotation = Quaternion.Euler(0.0f, data[i].theta, 0.0f);
+                            //transform.rotation = Quaternion.Euler(0.0f, data[i].theta, 0.0f);
                             //Distance
-                            if (data[i].distant > distance_min && data[i].distant < distance_max)
+                            if (Data_distance > distance_min && Data_distance < distance_max)
                             {
-                                Instantiate(spherePrefab, transform.forward * data[i].distant * 0.01f, Quaternion.identity);
+                                //Debug.Log("1. data,a" + data[i].theta + " // data,d" + data[i].distant);
+                                //transform.rotation = Quaternion.Euler(0.0f, UnityEngine.Random.Range(0, 90), 0.0f);
+                                transform.rotation = Quaternion.Euler(0.0f, Data_angle, 0.0f);
+
+                                //Debug.Log("2. data,a" + data[i].theta + " // data,d" + data[i].distant);
+                                //Capsule.transform.rotation = Quaternion.Euler(0.0f, data[i].distant, 0.0f);
+                                //24로 고정댐
+
                                 
+                               // Moving_obj.transform.position = transform.position * data[i].distant * 0.01f;
+                                GameObject temp_pos = Instantiate(spherePrefab, transform.forward * Data_distance * 0.01f, Quaternion.identity);
+                                Temp_position = Camera.main.WorldToScreenPoint(temp_pos.transform.position);
+                                
+                                Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, Temp_position.y));
+
+                                //transform.rotation = Quaternion.Euler(0.0f, UnityEngine.Random.Range(0, 90), 0.0f);
+                                //Moving_obj.transform.position = transform.forward * 0.01f* UnityEngine.Random.Range(400, 1000);
+
+
+                                //rotation이 실제로 회전하지는 않는 것 같음
+                                //capsule이 회전하면 오브젝트 이동은 정상적으로 작동하는 것 처럼 보임
+
+                                //data가 어느순간 0이 되버림..
+
+                                //instantiate로 만든 오브젝트를 리스트에 넣고
+                                //데이터는 update문보다 빨리 들어오는데 update를 돌면서 데이터가 이미 바뀌어버림
                             }
-                            //게임 오브젝트 생성은 정상
-                            //마우스 커서 움직이는것은 비정상
-                            //특히 한 지점에 뭉치게 됨, 그 지점에 오브젝트가 많이 배치 되어있는 것은 아님
 
                         }
                     }
@@ -136,6 +196,8 @@ public class RplidarTest : MonoBehaviour
         RplidarBinding.OnDisconnect();
         RplidarBinding.ReleaseDrive();
 
+
+        //StopCoroutine(GenMesh());
         m_thread.Abort();
 
         m_onscan = false;
@@ -175,6 +237,7 @@ public class RplidarTest : MonoBehaviour
 
             if (m_onscan)
             {
+                    //    StartCoroutine(GenMesh());
                 m_thread = new Thread(GenMesh);
                 m_thread.Start();
             }
@@ -190,7 +253,7 @@ public class RplidarTest : MonoBehaviour
         {
             bool r = RplidarBinding.StartMotor();
             Debug.Log("StartMotor:" + r);
-            Capsule.GetComponent<LidarRotateScript>().check = true;
+            //Capsule.GetComponent<LidarRotateScript>().check = true;
         });
 
         DrawButton("EndMotor", () =>
@@ -222,6 +285,7 @@ public class RplidarTest : MonoBehaviour
 
         });
     }
+
 
     void DrawButton(string label, Action callback)
     {
