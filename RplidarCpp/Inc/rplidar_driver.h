@@ -74,7 +74,7 @@ public:
     ///
     /// \param flag          other flags
     ///        Reserved for future use, always set to Zero
-    virtual u_result connect(const char * port_path, _u32 baudrate, _u32 flag = 0) = 0;
+    virtual u_result connect(const char * port_path, _u32 baudrate = 256000 , _u32 flag = 0) = 0;
 
 
     /// Disconnect with the RPLIDAR and close the serial port
