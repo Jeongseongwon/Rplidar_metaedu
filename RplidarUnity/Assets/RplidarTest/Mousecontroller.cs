@@ -4,6 +4,10 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 public class Mousecontroller : MonoBehaviour
 {
+
+    //1012 마우스 클릭 기능 확인
+
+
     public bool MouseClickOn = false;
 
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
