@@ -48,6 +48,8 @@ public class RplidarTest : MonoBehaviour
 
     private Camera cameraToLookAt;
 
+    public float Test_degree;
+    public float Test_distance;
 
     [SerializeField]
     public GameObject temp_pos;
@@ -75,8 +77,8 @@ public class RplidarTest : MonoBehaviour
         //Debug.Log("1. data_angle : " + Test_degree + "  2. data_distance : " + Test_distance);
 
         // degree, angle값을 기준으로 x,y좌표 계산/Test_degree, Test_disatnce값 변경하면 사용 가능
-        //Vector3 pos = new Vector3(Mathf.Cos(Test_degree * Mathf.Deg2Rad) * Test_distance, Mathf.Sin(Test_degree * Mathf.Deg2Rad) * Test_distance, 0);
-        //temp_pos.GetComponent<RectTransform>().anchoredPosition = pos;
+        Vector3 pos = new Vector3(Mathf.Cos(Test_degree * Mathf.Deg2Rad) * Test_distance, 540+Mathf.Sin(Test_degree * Mathf.Deg2Rad) * Test_distance, 0);
+        temp_pos.GetComponent<RectTransform>().anchoredPosition = pos;
 
     }
 
@@ -113,7 +115,10 @@ public class RplidarTest : MonoBehaviour
         //max_x = 960;
         //min_x = -960;
 
-        Cal_y = 540;
+        //실제 거리를 중간에 보정값이랑 곱한 만큼 보정을 해서 추가가 필요함
+        //10cm라 가정하고 50으로 환산
+        Cal_y = 0;
+        //Cal_y = -50;
 
 
 
@@ -121,8 +126,9 @@ public class RplidarTest : MonoBehaviour
 
     void Update()
     {
-        //if (Test_check)
-        //    Sensing();
+            //Sensing();
+        if (Input.GetKeyDown(KeyCode.Space))
+            Test_check = !Test_check;
     }
 
     void GenMesh()
@@ -152,8 +158,8 @@ public class RplidarTest : MonoBehaviour
             {
                 //센서 데이터 data[i].theta, distant
                 //1. 화면과 센서를 일치화 시키기 위해서 theta를 마이너스 곱해줌, 추가로 회전 시켜주기 위해 Sensor_rotation 추가했고 위에서 아래 방향으로 내려다 보는것 기준으 90도 입력하면 댐
-                x = 0.5f * Mathf.Cos((-data[i].theta + Sensor_rotation) * Mathf.Deg2Rad) * data[i].distant;
-                y = Cal_y+0.5f * Mathf.Sin((-data[i].theta + Sensor_rotation) * Mathf.Deg2Rad) * data[i].distant;
+                x = 0.74f * Mathf.Cos((-data[i].theta + Sensor_rotation) * Mathf.Deg2Rad) * data[i].distant;
+                y = Cal_y+540+0.74f * Mathf.Sin((-data[i].theta + Sensor_rotation) * Mathf.Deg2Rad) * data[i].distant;
 
                 if (i % 4 == 0)
                 {
@@ -185,19 +191,29 @@ public class RplidarTest : MonoBehaviour
                             if (min_y < y && y < max_y)
                             {
 
-                                GameObject Prefab_pos = Instantiate(spherePrefab, this.transform.position, Quaternion.identity, CANVAS.transform);
+                                
+                                GameObject Prefab_pos = Instantiate(spherePrefab, this.transform.position, Quaternion.Euler(0,0,0), CANVAS.transform);
                                 Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0);
-                                Prefab_pos.transform.LookAt(transform.position + cameraToLookAt.transform.rotation * Vector3.back,
-                                cameraToLookAt.transform.rotation * Vector3.down);
+                                Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+                                //Prefab_pos.transform.LookAt(transform.position + cameraToLookAt.transform.rotation * Vector3.back,
+                                //cameraToLookAt.transform.rotation * Vector3.down);
 
-                                if (i % 8 == 0)
+                                if (i % 16 == 0)
                                 {
-                                    Temp_position = Camera.main.WorldToScreenPoint(Prefab_pos.transform.position);
-                                    Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, Temp_position.y));
+                                    if (Test_check)
+                                    {
+                                        Temp_position = Camera.main.WorldToScreenPoint(Prefab_pos.transform.position);
+                                        Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, 1080-Temp_position.y));
+                                        //나중에 여기 좌표도 확인이 필요할 듯
+                                    }
                                 }
                             }
                         }
                     }
+
+                    //1. 마우스 이동 없이 센서 데이터 확인 기능
+                    //2. 마우스 이동 기능
+
                     Debug.Log("BEFORE 1. x : " + x + "  2. y : " + y);
 
                     //위치 추출해서 마우스 이동시키는 함수

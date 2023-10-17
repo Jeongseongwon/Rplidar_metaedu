@@ -40,10 +40,4 @@ public class Mousecontroller : MonoBehaviour
             Debug.Log("CLICKED");
         }
     }
-
-    public void DoMouseClick()
-    {
-        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        
-    }
 }

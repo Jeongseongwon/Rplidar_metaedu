@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class Destroy_prefab : MonoBehaviour
 {
     private float timer = 0f;
+    public GameObject Text;
     // Start is called before the first frame update
 
 
@@ -17,6 +19,9 @@ public class Destroy_prefab : MonoBehaviour
         //Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, Temp_position.y));
         //Debug.Log(Temp_position);
         ////중요, 이렇게 할 경우 오브젝트의 위치에 마우스가 위치하는 것을 확인함
+        Text.GetComponent<Text>().text = (this.GetComponent<RectTransform>().anchoredPosition.x).ToString() 
+            +","+ (this.GetComponent<RectTransform>().anchoredPosition.y).ToString();
+
     }
 
     // Update is called once per frame
