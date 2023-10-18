@@ -17,7 +17,8 @@ public class RplidarTest : MonoBehaviour
     private GameObject CANVAS;
 
     //=====0714
-    public GameObject spherePrefab; //spherePrefab을 받을 변수 
+    public GameObject BALLPrefab; //spherePrefab을 받을 변수 
+    public GameObject MOUSEPrefab; //spherePrefab을 받을 변수 
 
     public bool m_onscan = false;
     private Thread m_thread;
@@ -190,11 +191,18 @@ public class RplidarTest : MonoBehaviour
                         {
                             if (min_y < y && y < max_y)
                             {
-
-                                
-                                GameObject Prefab_pos = Instantiate(spherePrefab, this.transform.position, Quaternion.Euler(0,0,0), CANVAS.transform);
-                                Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0);
-                                Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+                                if (Test_check)
+                                {
+                                    GameObject Prefab_pos = Instantiate(MOUSEPrefab, this.transform.position, Quaternion.Euler(0, 0, 0), CANVAS.transform);
+                                    Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0);
+                                    Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+                                }
+                                else {
+                                    GameObject Prefab_pos = Instantiate(BALLPrefab, this.transform.position, Quaternion.Euler(0, 0, 0), CANVAS.transform);
+                                    Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0);
+                                    Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+                                }
+                                Debug.Log("BEFORE 1. x : " + x + "  2. y : " + y);
                                 //Prefab_pos.transform.LookAt(transform.position + cameraToLookAt.transform.rotation * Vector3.back,
                                 //cameraToLookAt.transform.rotation * Vector3.down);
 
@@ -202,8 +210,8 @@ public class RplidarTest : MonoBehaviour
                                 {
                                     if (Test_check)
                                     {
-                                        Temp_position = Camera.main.WorldToScreenPoint(Prefab_pos.transform.position);
-                                        Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, 1080-Temp_position.y));
+                                        //Temp_position = Camera.main.WorldToScreenPoint(Prefab_pos.transform.position);
+                                        //Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, 1080-Temp_position.y));
                                         //나중에 여기 좌표도 확인이 필요할 듯
                                     }
                                 }
@@ -214,7 +222,7 @@ public class RplidarTest : MonoBehaviour
                     //1. 마우스 이동 없이 센서 데이터 확인 기능
                     //2. 마우스 이동 기능
 
-                    Debug.Log("BEFORE 1. x : " + x + "  2. y : " + y);
+                    //Debug.Log("BEFORE 1. x : " + x + "  2. y : " + y);
 
                     //위치 추출해서 마우스 이동시키는 함수
                     //Temp_position = Camera.main.WorldToScreenPoint(Prefab_pos.transform.position);

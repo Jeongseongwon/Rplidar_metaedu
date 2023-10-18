@@ -35,7 +35,14 @@ public class Check_resolution : MonoBehaviour
     void Update()
     {
 
-        Resolution = Input.mousePosition.x.ToString() + "x" + Input.mousePosition.y.ToString();
-        Mousepos_text.GetComponent<Text>().text = Resolution;
+        //Resolution = Input.mousePosition.x.ToString() + "x" + Input.mousePosition.y.ToString();
+        //Mousepos_text.GetComponent<Text>().text = Resolution;
+
+        if (Input.GetMouseButton(0))
+        {
+            Debug.Log("CLICKED");
+            Resolution = Input.mousePosition.x.ToString() + "x" + Input.mousePosition.y.ToString();
+            Mousepos_text.GetComponent<Text>().text = Resolution;
+        }
     }
 }

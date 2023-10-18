@@ -35,9 +35,9 @@ public class Mousecontroller : MonoBehaviour
         if (MouseClickOn)
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 
-        if (Input.GetMouseButton(0))
-        {
-            Debug.Log("CLICKED");
-        }
+        //if (Input.GetMouseButton(0))
+        //{
+        //    Debug.Log("CLICKED");
+        //}
     }
 }

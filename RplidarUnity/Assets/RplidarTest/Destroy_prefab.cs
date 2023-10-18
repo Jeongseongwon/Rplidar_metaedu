@@ -15,12 +15,14 @@ public class Destroy_prefab : MonoBehaviour
 
     void Start()
     {
+        ////중요, 이렇게 할 경우 오브젝트의 위치에 마우스가 위치하는 것을 확인함
         //Temp_position = Camera.main.WorldToScreenPoint(this.gameObject.GetComponent<Transform>().position);
         //Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, Temp_position.y));
         //Debug.Log(Temp_position);
-        ////중요, 이렇게 할 경우 오브젝트의 위치에 마우스가 위치하는 것을 확인함
-        Text.GetComponent<Text>().text = (this.GetComponent<RectTransform>().anchoredPosition.x).ToString() 
-            +","+ (this.GetComponent<RectTransform>().anchoredPosition.y).ToString();
+
+
+        //Text.GetComponent<Text>().text = (this.GetComponent<RectTransform>().anchoredPosition.x).ToString() 
+        //    +","+ (this.GetComponent<RectTransform>().anchoredPosition.y).ToString();
 
     }
 
@@ -36,6 +38,7 @@ public class Destroy_prefab : MonoBehaviour
             timer = 0f;
             Destroy_obj();
         }
+
     }
 
     void Destroy_obj()
