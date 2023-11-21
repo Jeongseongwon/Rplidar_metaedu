@@ -29,7 +29,9 @@ public class RayCast_test : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("MOUSE CLICKED");
+            
 
+            //메인 카메라 레이 캐스트
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -38,12 +40,13 @@ public class RayCast_test : MonoBehaviour
 
             }
 
+            //UI 카메라 레이 캐스트
             PED.position = Input.mousePosition;
             List<RaycastResult> results = new List<RaycastResult>();
             GR.Raycast(PED, results);
 
-
-            if (results[0].gameObject)
+            //예외처리하면 될 듯?
+            if (results.Count>0)
             {
                 Debug.Log(results[0].gameObject.name);
             }

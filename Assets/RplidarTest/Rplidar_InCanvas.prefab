@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 3418462357684042297}
   - component: {fileID: 3418462357684042302}
   - component: {fileID: 3418462357684042299}
+  - component: {fileID: 5235486607980089402}
   m_Layer: 5
   m_Name: Lidar_object
   m_TagString: Untagged
@@ -1030,7 +1031,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35780c0986ee5644b7ffe3c5d97da8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CAMERA: {fileID: 0}
   port: COM4
   BALLPrefab: {fileID: 4389488267611479880, guid: 748675ba476c1a54ba66bc66d3264ca5,
     type: 3}
@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_onscan: 0
   Test_check: 0
   Guideline: {fileID: 3418462357973634393}
+  TESTUI: {fileID: 0}
   min_x: 0
   min_y: 0
   max_x: 0
@@ -1060,6 +1061,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MouseClickOn: 0
+--- !u!114 &5235486607980089402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418462357684042300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52366b7122f6ef442af602a07e536ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: COM4
+  BALLPrefab: {fileID: 4389488267611479880, guid: 748675ba476c1a54ba66bc66d3264ca5,
+    type: 3}
+  MOUSEPrefab: {fileID: 886082513674400756, guid: e3ff834810723174db4afebed00c13a7,
+    type: 3}
+  m_onscan: 0
+  Test_check: 0
+  Guideline: {fileID: 3418462357973634393}
+  TESTUI: {fileID: 0}
+  min_x: 0
+  min_y: 0
+  max_x: 0
+  max_y: 0
+  Test_degree: 0
+  Test_distance: 0
+  temp_pos: {fileID: 1412521928990157084}
+  Sensor_rotation: -90
 --- !u!1 &3418462357684683994
 GameObject:
   m_ObjectHideFlags: 0
