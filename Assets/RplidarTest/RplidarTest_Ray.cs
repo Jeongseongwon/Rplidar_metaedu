@@ -93,7 +93,7 @@ public class RplidarTest_Ray : MonoBehaviour
         }
 
         Img_Rect_transform = this.GetComponent<RectTransform>();
-        CANVAS = GameObject.Find("3DCANVAS");
+        CANVAS = GameObject.Find("UIManager");
         UI_Camera = GameObject.Find("UICamera").GetComponent<Camera>();
 
         GR = UI_Canvas.GetComponent<GraphicRaycaster>();
@@ -195,48 +195,8 @@ public class RplidarTest_Ray : MonoBehaviour
                                     Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x + 30, y - 30, 0);
                                     Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
 
-
-                                    //1. UI 카메라상에서 마우스 클릭한걸 메인 카메라에서 제대로 레이 캐스트가 되는지 확인
-
-
-                                    // 1. 마우스 포지션으로 메인 카메라로 레이 캐스트 하는거 정상작동 확인함
-                                    // 2. UI 캔버스상에 있는 이미지의 위치로 메인 카메라에 투영할 수 있는지 이게 중요함
-                                    // 아까 해보자 했던 아이디어는 그냥 그 위치 좌표 그대로 그냥 가져와서 하자는거 였음
-
-                                    //
-
-                                    //실질적으로 공이 찍히는 카메라는 UI 카메라
-                                    //레이를 찍을 카메라는 메인 카메라
-
-                                    //UI 캔버스 위에 점을 찍음, UI 캔버스 상에서의 x,y좌표가 메인 카메라에서도 똑같다는거지
-                                    //메인 캔버스(3D 오브젝트용) 위에 x,y좌표를 두고 그걸 기준으로 레이를 쏴주는거지
-
-                                    Ray ray = Camera.main.ScreenPointToRay(Prefab_pos.GetComponent<RectTransform>().anchoredPosition);
-                                    RaycastHit hit;
-                                    if (Physics.Raycast(ray, out hit))
-                                    {
-                                        Debug.Log(hit.transform.name);
-                                    }
-
-                                    ////PED.position = Input.mousePosition;
-                                    //PED.position = Prefab_pos.GetComponent<RectTransform>().anchoredPosition;
-
-                                    //List<RaycastResult> results = new List<RaycastResult>();
-                                    //GR.Raycast(PED, results);
-
-
-                                    //if (results.Count>0)
-                                    //{
-                                    //    Debug.Log(results[0].gameObject.name);
-                                    //}
-
                                 }
 
-                                //2D랑 3D를 어떻게 구분할 것인가?
-                                //기존의 콘텐츠는 전부 3D 기반으로 만들어져있고
-                                //일부 콘텐츠의 경우 2D로 만들어져있음
-                                
-                                
 
                             }
                         }

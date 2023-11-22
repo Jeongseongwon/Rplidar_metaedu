@@ -10,6 +10,8 @@ public class RayCast_test : MonoBehaviour
     GraphicRaycaster GR;
     PointerEventData PED;
 
+    public float moveSpeed = 5f; // 이미지의 이동 속도
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,9 @@ public class RayCast_test : MonoBehaviour
     }
     // Update is called once per frame
 
-    //1. 마우스 클릭 할 때 레이캐스트 생성 하는거 구현
+    //1. 마우스 클릭 할 때 레이캐스트 생성 하는거 확인
     //2. 레이 캐스트랑 UI 이미지랑 반응하는 것 확인
+    //3. 마우스가 아니라 내가 제어하는 이미지로 그렇게 되는지 확인 필요
     //3. 최종 연동 작업 >> 3D 오브젝트랑 2D UI를 각각 구분해서 작동하도록 방법이 필요할 것으로 생각됨
 
     void Update()
