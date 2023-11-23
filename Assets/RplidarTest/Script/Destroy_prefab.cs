@@ -45,10 +45,14 @@ public class Destroy_prefab : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Temp_position);
 
         RaycastHit hit;
+
+        Color randomColor = new Color(Random.value, Random.value, Random.value);
+
         if (Physics.Raycast(ray, out hit))
         {
             Debug.Log(hit.transform.name);
 
+            hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = randomColor;
         }
 
         //UI 카메라 레이 캐스트
@@ -59,6 +63,7 @@ public class Destroy_prefab : MonoBehaviour
         if (results.Count > 0)
         {
             Debug.Log(results[0].gameObject.name);
+            results[0].gameObject.GetComponent<Image>().color = randomColor;
         }
     }
 
