@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class Destroy_prefab : MonoBehaviour
 {
     private float timer = 0f;
-    public GameObject Text;
+    //public GameObject Text;
     // Start is called before the first frame update
 
 
@@ -16,10 +16,10 @@ public class Destroy_prefab : MonoBehaviour
     //
 
     //====1122
-    public Canvas UIManager;
+    private GameObject UI_Canvas;
+    private Camera UI_Camera;
     GraphicRaycaster GR;
     PointerEventData PED;
-    public Camera UI_Camera;
 
 
     void Start()
@@ -29,10 +29,10 @@ public class Destroy_prefab : MonoBehaviour
         //Mouse.current.WarpCursorPosition(new Vector2(Temp_position.x, Temp_position.y));
         //Debug.Log(Temp_position);
 
-        UIManager = Manager_Sensor.instance.Get_UImanager();
+        UI_Canvas = Manager_Sensor.instance.Get_UIcanvas();
         UI_Camera = Manager_Sensor.instance.Get_UIcamera();
 
-        GR = UIManager.GetComponent<GraphicRaycaster>();
+        GR = UI_Canvas.GetComponent<GraphicRaycaster>();
         PED = new PointerEventData(null);
         //Debug.Log("MOUSE CLICKED");
         // - UI 캔버스든 메인 카메라의 캔버스든 동일 위치 동일 좌표이므로

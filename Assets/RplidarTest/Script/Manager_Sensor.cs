@@ -6,8 +6,8 @@ public class Manager_Sensor : MonoBehaviour
 {
     public static Manager_Sensor instance = null;
 
-    private Canvas UI_Manager;
-    private Camera UI_Camera;
+    public GameObject UI_Canvas;
+    public Camera UI_Camera;
 
 
     // Start is called before the first frame update
@@ -27,13 +27,12 @@ public class Manager_Sensor : MonoBehaviour
 
     void Start()
     {
-        UI_Camera = GameObject.FindWithTag("UICamera").GetComponent<Camera>();
-        UI_Manager = GameObject.Find("UIManager").GetComponent<Canvas>();
+        
     }
 
-    public Canvas Get_UImanager()
+    public GameObject Get_UIcanvas()
     {
-        return UI_Manager;
+        return UI_Canvas;
     }
     public Camera Get_UIcamera()
     {

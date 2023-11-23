@@ -14,7 +14,6 @@ public class RplidarTest_Ray : MonoBehaviour
 
     private LidarData[] data;
     private RectTransform Img_Rect_transform;
-    private GameObject CANVAS;
 
     //=====0714
     public GameObject BALLPrefab; //spherePrefab을 받을 변수 
@@ -60,11 +59,11 @@ public class RplidarTest_Ray : MonoBehaviour
 
     //1121
 
-    public Canvas UI_Canvas;
+    private GameObject UI_Canvas;
+    private Camera UI_Camera;
     GraphicRaycaster GR;
     PointerEventData PED;
 
-    private Camera UI_Camera;
 
     private float x;
     private float y;
@@ -93,8 +92,9 @@ public class RplidarTest_Ray : MonoBehaviour
         }
 
         Img_Rect_transform = this.GetComponent<RectTransform>();
-        CANVAS = GameObject.Find("UIManager");
-        UI_Camera = GameObject.Find("UICamera").GetComponent<Camera>();
+
+        UI_Canvas = Manager_Sensor.instance.Get_UIcanvas();
+        UI_Camera = Manager_Sensor.instance.Get_UIcamera();
 
         GR = UI_Canvas.GetComponent<GraphicRaycaster>();
         PED = new PointerEventData(null);
@@ -116,9 +116,6 @@ public class RplidarTest_Ray : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //    Test_check = !Test_check;
-
 
     }
     void GenMesh()
@@ -166,24 +163,11 @@ public class RplidarTest_Ray : MonoBehaviour
                                     //데모용, 마우스
                                     //Guideline.SetActive(false);
                                     //TESTUI.SetActive(false);
-                                    GameObject Prefab_pos = Instantiate(MOUSEPrefab, this.transform.position, Quaternion.Euler(0, 0, 0), CANVAS.transform);
+                                    GameObject Prefab_pos = Instantiate(MOUSEPrefab, this.transform.position, Quaternion.Euler(0, 0, 0), UI_Canvas.transform);
                                     Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x + 30, y - 30, 0);
                                     Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
 
                                     Debug.Log("MOUSE CLICKED");
-
-                                    //PED.position = Input.mousePosition;
-                                    PED.position = Prefab_pos.GetComponent<RectTransform>().anchoredPosition;
-
-                                    List<RaycastResult> results = new List<RaycastResult>();
-                                    GR.Raycast(PED, results);
-
-
-                                    if (results[0].gameObject)
-                                    {
-                                        Debug.Log(results[0].gameObject.name);
-                                    }
-
 
                                 }
                                 else
@@ -191,7 +175,7 @@ public class RplidarTest_Ray : MonoBehaviour
                                     //개발자용, 공
                                     Guideline.SetActive(true);
                                     TESTUI.SetActive(true);
-                                    GameObject Prefab_pos = Instantiate(BALLPrefab, CANVAS.transform.position, Quaternion.Euler(0, 0, 0), CANVAS.transform);
+                                    GameObject Prefab_pos = Instantiate(BALLPrefab, UI_Canvas.transform.position, Quaternion.Euler(0, 0, 0), UI_Canvas.transform);
                                     Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x + 30, y - 30, 0);
                                     Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
 
