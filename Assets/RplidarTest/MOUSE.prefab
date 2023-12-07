@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886082513674400753}
-  - component: {fileID: 886082513674400752}
   - component: {fileID: 2711460299909162768}
+  - component: {fileID: 886082513674400752}
   - component: {fileID: -1080388985723875176}
+  - component: {fileID: 3189308495732870754}
   m_Layer: 5
   m_Name: MOUSE
   m_TagString: Untagged
@@ -40,6 +41,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2711460299909162768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886082513674400756}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead3fa6ded7b56f42bd4a253b2535144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CAMERA: {fileID: 0}
 --- !u!222 &886082513674400752
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48,18 +62,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886082513674400756}
   m_CullTransparentMesh: 0
---- !u!114 &2711460299909162768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886082513674400756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead3fa6ded7b56f42bd4a253b2535144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1080388985723875176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +69,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886082513674400756}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -90,6 +92,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3189308495732870754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886082513674400756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf653a4de54c9ed419551c67567c073f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MouseClickOn: 0
 --- !u!1 &886082513674400759
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886082513674400759}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

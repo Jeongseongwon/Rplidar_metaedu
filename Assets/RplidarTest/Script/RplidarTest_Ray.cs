@@ -16,9 +16,8 @@ public class RplidarTest_Ray : MonoBehaviour
     private RectTransform Img_Rect_transform;
 
     //=====0714
-    public GameObject BALLPrefab; //spherePrefab을 받을 변수 
-    public GameObject MOUSEPrefab; //spherePrefab을 받을 변수 
-
+    public GameObject BALLPrefab;  
+    public GameObject MOUSEPrefab; 
     public bool m_onscan = false;
     private Thread m_thread;
     private bool m_datachanged = false;
@@ -109,14 +108,14 @@ public class RplidarTest_Ray : MonoBehaviour
         //10cm라 가정하고 50으로 환산
         Cal_y = 0;
         //Cal_y = -50;
-
-
-
     }
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Test_check = !Test_check;
+        }
     }
     void GenMesh()
     {
@@ -160,25 +159,22 @@ public class RplidarTest_Ray : MonoBehaviour
                             {
                                 if (Test_check)
                                 {
-                                    //데모용, 마우스
-                                    //Guideline.SetActive(false);
-                                    //TESTUI.SetActive(false);
+                                    //데모용
+                                    Guideline.SetActive(false);
+                                    TESTUI.SetActive(false);
                                     GameObject Prefab_pos = Instantiate(MOUSEPrefab, this.transform.position, Quaternion.Euler(0, 0, 0), UI_Canvas.transform);
                                     Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x + 30, y - 30, 0);
                                     Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
-
-                                    Debug.Log("MOUSE CLICKED");
-
                                 }
                                 else
                                 {
                                     //개발자용, 공
                                     Guideline.SetActive(true);
                                     TESTUI.SetActive(true);
-                                    GameObject Prefab_pos = Instantiate(BALLPrefab, UI_Canvas.transform.position, Quaternion.Euler(0, 0, 0), UI_Canvas.transform);
-                                    Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x + 30, y - 30, 0);
-                                    Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
-
+                                    //GameObject Prefab_pos = Instantiate(BALLPrefab, UI_Canvas.transform.position, Quaternion.Euler(0, 0, 0), UI_Canvas.transform);
+                                    //Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(x + 30, y - 30, 0);
+                                    //Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+                                    Instant_Ball(x,y);
                                 }
 
 
@@ -191,6 +187,13 @@ public class RplidarTest_Ray : MonoBehaviour
             m_datachanged = false;
         }
 
+    }
+
+    public void Instant_Ball(float temp_x, float temp_y)
+    {
+        GameObject Prefab_pos = Instantiate(BALLPrefab, UI_Canvas.transform.position, Quaternion.Euler(0, 0, 0), UI_Canvas.transform);
+        Prefab_pos.GetComponent<RectTransform>().anchoredPosition = new Vector3(temp_x + 30, temp_y - 30, 0);
+        Prefab_pos.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
     }
    
     void OnDestroy()
